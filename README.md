@@ -1,4 +1,4 @@
 MiniBinaryParser
 ================
 
-Vary simple binary parser for c#
+Very simple binary parser for c#
