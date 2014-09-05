@@ -59,28 +59,20 @@ namespace MiniBinaryParser.Tests
         }
 
         [TestMethod]
-        public void TestReadDouble()
+        public void TestEpochTimestamp()
         {
             // Arrance
-            byte[] sequence = new byte[] { 0xFF, 0xF0, 0x30, 0x40, 0x10, 0x20, 0x30, 0x40 };
-            double bigEndian = 0;
-            double littleEndian = 0;
+            byte[] sequence = new byte[] { 236, 249, 9, 84 };
+            DateTime bigEndian = DateTime.MinValue;
+            DateTime littleEndian = DateTime.MinValue;
 
             // Act
-            sequence.Parse(Endian.Big, From.Double((s) => bigEndian = s));
-            sequence.Parse(Endian.Little, From.Double((s) => littleEndian = s));
+            sequence.Parse(Endian.Big, From.EpochTimestamp((s) => bigEndian = s));
+            sequence.Parse(Endian.Little, From.EpochTimestamp((s) => littleEndian = s));
 
             // Assert
-            Assert.AreEqual(bigEndian, 0x0102030405060708);
-            Assert.AreEqual(littleEndian, 0x0807060504030201);
-        }
-
-
-
-        [TestMethod]
-        public void TestReadInt()
-        {
-            
+            Assert.AreEqual(bigEndian, new DateTime(2095,12,26,13,17,08));
+            Assert.AreEqual(littleEndian,  new DateTime(2014,09,05,17,59,08));
         }
     }
 }
