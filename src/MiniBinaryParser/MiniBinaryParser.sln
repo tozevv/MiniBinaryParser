@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBinaryParser", "MiniBinaryParser\MiniBinaryParser.csproj", "{B7AAD2C4-E11D-4AF9-8CA9-12CE9487EAC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBinaryParser.Tests", "MiniBinaryParser.Tests\MiniBinaryParser.Tests.csproj", "{D51D414F-8227-4479-BF19-25615ABCB241}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7AAD2C4-E11D-4AF9-8CA9-12CE9487EAC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7AAD2C4-E11D-4AF9-8CA9-12CE9487EAC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7AAD2C4-E11D-4AF9-8CA9-12CE9487EAC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7AAD2C4-E11D-4AF9-8CA9-12CE9487EAC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D51D414F-8227-4479-BF19-25615ABCB241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D51D414F-8227-4479-BF19-25615ABCB241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D51D414F-8227-4479-BF19-25615ABCB241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D51D414F-8227-4479-BF19-25615ABCB241}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
