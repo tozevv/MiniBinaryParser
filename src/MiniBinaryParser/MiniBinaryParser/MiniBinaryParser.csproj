@@ -39,12 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinEndianBinaryReader.cs" />
+    <Compile Include="CustomEndianBinaryReader.cs" />
     <Compile Include="ByteArrayExtensions.cs" />
     <Compile Include="Endian.cs" />
     <Compile Include="Match.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="To.cs" />
+    <Compile Include="From.cs" />
     <Compile Include="Token.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

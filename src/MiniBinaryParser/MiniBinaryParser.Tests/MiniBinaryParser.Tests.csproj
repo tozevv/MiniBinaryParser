@@ -53,6 +53,12 @@
     <Compile Include="ParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiniBinaryParser\MiniBinaryParser.csproj">
+      <Project>{b7aad2c4-e11d-4af9-8ca9-12ce9487eac3}</Project>
+      <Name>MiniBinaryParser</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
