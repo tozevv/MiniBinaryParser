@@ -11,6 +11,7 @@ namespace MiniBinaryParser
         }
 
         public Func<BinaryReader, bool> Parse { get; private set; }
+        
 
         public static implicit operator Token(byte val)
         {

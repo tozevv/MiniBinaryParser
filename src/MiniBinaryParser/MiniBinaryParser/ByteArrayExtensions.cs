@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiniBinaryParser
 {
@@ -19,13 +15,18 @@ namespace MiniBinaryParser
 
             while (br.BaseStream.CanRead && patternPosition < pattern.Length)
             {
+                long pos = stream.Position;
                 if (pattern[patternPosition].Parse(br))
                 {
                     patternPosition++;
-                    match.Start = (int)stream.Position;
+                    if (match.Start == 0)
+                    {
+                        match.Start = (int)pos;
+                    }
                 }
                 else
                 {
+                    stream.Position = pos + 1; // failed to match, advance position only 1 byte
                     match.Start = 0;
                     patternPosition = 0;
                 }
@@ -35,7 +36,7 @@ namespace MiniBinaryParser
             {
                 match.End = (int)stream.Position;
                 match.MatchedBytes = sequence.Skip(match.Start).Take(match.End - match.Start).ToArray();
-                match.MatchedBytes = sequence.Take(match.Start).Concat(sequence.Skip(match.End).Take(match.End - sequence.Length)).ToArray();
+                match.UnmatchedBytes = sequence.Take(match.Start).Concat(sequence.Skip(match.End).Take(sequence.Length - match.End)).ToArray();
             } 
             else  
             {
@@ -43,8 +44,7 @@ namespace MiniBinaryParser
                 match.MatchedBytes = null;
                 match.UnmatchedBytes = sequence.ToArray();
             }
-
-            return null;
+            return match;
         }
     }
 }

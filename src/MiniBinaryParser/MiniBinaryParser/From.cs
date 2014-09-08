@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiniBinaryParser
 {
@@ -64,7 +60,7 @@ namespace MiniBinaryParser
         {
             return new Token((reader) =>
             {
-                // Guid must be read in big endian...
+                // Guid must be read in big endian according to RFC 4122...
                 var bigEndianReader = new CustomEndianBinaryReader(Endian.Big, reader.BaseStream);
                 Guid g = new Guid(bigEndianReader.ReadInt32(),
                          bigEndianReader.ReadInt16(),
