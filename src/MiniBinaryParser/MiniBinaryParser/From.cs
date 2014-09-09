@@ -9,9 +9,14 @@ namespace MiniBinaryParser
             return new Token((reader) => { match(reader.ReadByte()); return true; });
         }
 
-        public static Token Bytes(Action<byte[]> match, int count)
+        public static Token Bytes(int count, Action<byte[]> match)
         {
             return new Token((reader) => { match(reader.ReadBytes(count)); return true; });
+        }
+
+        public static Token Bytes(Func<int> count, Action<byte[]> match)
+        {
+            return new Token((reader) => { match(reader.ReadBytes(count())); return true; });
         }
 
         public static Token Int16(Action<short> match)
@@ -29,17 +34,17 @@ namespace MiniBinaryParser
             return new Token((reader) => { match(reader.ReadInt64()); return true; });
         }
 
-        public static Token Int16(Action<ushort> match)
+        public static Token UInt16(Action<ushort> match)
         {
             return new Token((reader) => { match(reader.ReadUInt16()); return true; });
         }
 
-        public static Token Int32(Action<uint> match)
+        public static Token UInt32(Action<uint> match)
         {
             return new Token((reader) => { match(reader.ReadUInt32()); return true; });
         }
 
-        public static Token Int64(Action<ulong> match)
+        public static Token UInt64(Action<ulong> match)
         {
             return new Token((reader) => { match(reader.ReadUInt64()); return true; });
         }
