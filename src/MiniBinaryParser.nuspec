@@ -2,6 +2,7 @@
 <package>
   <metadata>
     <id>MiniBinaryParser</id>
+    <title>MiniBinaryParser</title>
     <version>0.1</version>
     <authors>António Vieira</authors>
     <owners>António Vieira</owners>
