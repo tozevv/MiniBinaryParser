@@ -98,7 +98,11 @@ For example supporting reading booleans where 0x01 is true and everything else i
     );
 ```
 
+Known Limitations
+-----------------
 
+Missing support for Strings (ASCII or Unicode) and Decimals.
 
+It's not possible to use the same fluent style in extensions. Both the implicit operator that converts a value to the constant Symbol and the From class can only be extended in the same assembly. 
 
 
