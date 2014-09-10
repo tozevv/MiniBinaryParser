@@ -10,4 +10,5 @@ Matches sequences in byte arrays:
 
     byte[] matchedSequence = match.MatchedBytes;     // match sequence is    { 0x01, 0x02 }
     byte[] unmatchedSequence = match.UnmatchedBytes; // unmatche sequence is { 0x00, 0x03 }
-´´´
+
+
