@@ -5,7 +5,7 @@ namespace MiniBinaryParser
 {
     public static class ByteArrayExtensions
     {
-        public static Match Parse(this byte[] sequence, Endian endian, params Symbol[] pattern)
+        public static Match Parse(this byte[] sequence, Endian endian, params Symbol[] symbols)
         {
             Match match = new Match();
             int patternPosition = 0;
@@ -13,10 +13,10 @@ namespace MiniBinaryParser
 
             BinaryReader br = new CustomEndianBinaryReader(endian, stream);
 
-            while (br.BaseStream.CanRead && patternPosition < pattern.Length)
+            while (br.BaseStream.CanRead && patternPosition < symbols.Length)
             {
                 long pos = stream.Position;
-                if (pattern[patternPosition].Parse(br))
+                if (symbols[patternPosition].Parse(br))
                 {
                     patternPosition++;
                     if (match.Start == 0)
@@ -32,7 +32,7 @@ namespace MiniBinaryParser
                 }
             }
 
-            if (patternPosition == pattern.Length)
+            if (patternPosition == symbols.Length)
             {
                 match.End = (int)stream.Position;
                 match.MatchedBytes = sequence.Skip(match.Start).Take(match.End - match.Start).ToArray();
