@@ -5,7 +5,7 @@ namespace MiniBinaryParser
 {
     public static class ByteArrayExtensions
     {
-        public static Match Parse(this byte[] sequence, Endian endian, params Token[] pattern)
+        public static Match Parse(this byte[] sequence, Endian endian, params Symbol[] pattern)
         {
             Match match = new Match();
             int patternPosition = 0;
