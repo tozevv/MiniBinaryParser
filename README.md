@@ -98,11 +98,6 @@ For example supporting reading booleans where 0x01 is true and everything else i
     );
 ```
 
-You can also add a constant symbol matcher for booleans
-
-
-
-
 
 
 
