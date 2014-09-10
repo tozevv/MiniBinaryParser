@@ -1,8 +1,10 @@
 MiniBinaryParser
 ================
 
-Very simple binary parser for C#.
-Matches sequences in byte arrays:
+Using
+-----
+
+Very simple binary parser for C#. Matches sequences in byte arrays:
 
 ```csharp
     byte[] sequence = new byte[] { 0x00, 0x01, 0x02, 0x03  };
@@ -12,8 +14,12 @@ Matches sequences in byte arrays:
     byte[] unmatchedSequence = match.UnmatchedBytes; // unmatche sequence is { 0x00, 0x03 }
 ```
 
+The matching is not limited to sequences of bytes as bytes can represent *symbols* that come in two flavors:
 
-And retrieves data from sequences using a very flexible strategy. Here's a simple Type-Length-Value parse:
+   - *Constant Symbols*: typically used to match types of values or byte markers, usually byte or integer types
+   - *Variable Symbols*: actual data to be retrieved from the binary sequence 
+
+Here's a simple [Type-Length-Value](http://en.wikipedia.org/wiki/Type-length-value) parse, where type is a Constant Symbol and length and value ar Variable Symbols. 
 
 ```csharp
     byte[] sequence = new byte[] { 0x00, 0x00, 0xAA, 0xAF, 0x00, 0x04, 0x01, 0x02, 0x03, 0x04, 0x05  };
@@ -29,9 +35,7 @@ And retrieves data from sequences using a very flexible strategy. Here's a simpl
     // data is now 0x01, 0x02, 0x03, 0x04;
 ```
 
-The "type" match rely in matching the sequence as a byte[] or as any integer type sequence honouring the Endianness parameter.
-
-"From" data type parsers come in several flavours. Current version supports Unix Epoch style dates, RFC4122 UUID/GUID and all CLR integer types. Here's a more complex example showing 3 different data types and a sequecne match using ```unsigned short```.  
+The Parse function receives an array of symbols. An endianness parameter is required to remove any ambiguity when parsing integer and numeric types. Symbols are strongly typed. Current version supports, besides bytes, Unix Epoch style dates, RFC4122 UUID/GUID and all CLR integer types symbols.
 
 
 ```csharp
@@ -54,6 +58,48 @@ The "type" match rely in matching the sequence as a byte[] or as any integer typ
     // user.BirthDate is 1977/01/18
 
 ```
+
+
+Extending
+---------
+
+Support for new Symbols is possible by extending the "From" partial class or roll your own that generates a Symbol Parser. A symbol parser is just a ```Func<BinaryReader, bool> ``` receiving the byte reader at the current position and returning true if it's a match of false otherwise.
+
+For example supporting reading booleans where 0x01 is true and everything else is false could be added as:
+
+```csharp
+    public class BooleanSymbol: Symbol
+    {
+        public BooleanSymbol(Func<BinaryReader, bool> parse): base(parse) {}
+        public static Symbol Variable(Action<bool> match)
+        {
+            return new Symbol((reader) => { match(reader.ReadByte() == 1); return true; });
+        }
+
+        public static Symbol Const(bool val)
+        {
+            return new BooleanSymbol((reader) => { return (reader.ReadByte() == 1) == val; });
+        }
+    }
+    
+    ...
+    
+    byte[] sequence = new byte[] { 
+         0x01, 0x00, 0x01, 0x00
+    };
+
+    bool isTrue = false, isFalse = true;
+
+    Match m = sequence.Parse(Endian.Big,
+        BooleanSymbol.Const(true),
+        BooleanSymbol.Const(false),
+        BooleanSymbol.Variable((s) => isTrue = s),
+        BooleanSymbol.Variable((s) => isFalse = s)
+    );
+```
+
+You can also add a constant symbol matcher for booleans
+
 
 
 
