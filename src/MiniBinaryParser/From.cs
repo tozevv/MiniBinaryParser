@@ -2,7 +2,7 @@
 
 namespace MiniBinaryParser
 {
-    public static partial class From
+    public static class From
     {
         public static Symbol Byte(Action<byte> match)
         {

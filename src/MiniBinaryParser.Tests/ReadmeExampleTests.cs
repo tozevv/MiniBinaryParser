@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
 
 namespace MiniBinaryParser.Tests
 {
@@ -12,6 +13,21 @@ namespace MiniBinaryParser.Tests
             public DateTime BirthDate { get; set; }
             public uint NumberOfFriends { get; set; }
         }
+
+        public class BooleanSymbol: Symbol
+        {
+            public BooleanSymbol(Func<BinaryReader, bool> parse): base(parse) {}
+            public static Symbol Variable(Action<bool> match)
+            {
+                return new Symbol((reader) => { match(reader.ReadByte() == 1); return true; });
+            }
+
+            public static Symbol Const(bool val)
+            {
+                return new BooleanSymbol((reader) => { return (reader.ReadByte() == 1) == val; });
+            }
+        }
+
 
         [TestMethod]
         public void TestBinaryMatch()
@@ -62,6 +78,26 @@ namespace MiniBinaryParser.Tests
             Assert.AreEqual(Guid.Parse("a0a1a2a3-a4a5-a6a7-a8a9-aaabacadaeaf"), user.UserId);
             Assert.AreEqual((uint)288, user.NumberOfFriends);
             Assert.AreEqual(new DateTime(1977,01,18), user.BirthDate);
+
+        }
+
+        [TestMethod]
+        public void TestBooleanParse()
+        {
+            byte[] sequence = new byte[] { 
+                 0x01, 0x00, 0x01, 0x00
+            };
+
+            bool isTrue = false, isFalse = true;
+
+            Match m = sequence.Parse(Endian.Big,
+                BooleanSymbol.Const(true),
+                BooleanSymbol.Const(false),
+                BooleanSymbol.Variable((s) => isTrue = s),
+                BooleanSymbol.Variable((s) => isFalse = s)
+            );
+            Assert.AreEqual(true, isTrue);
+            Assert.AreEqual(false, isFalse);
 
         }
     }
