@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>MiniBinaryParser</id>
+    <version>0.1</version>
+    <authors>António Vieira</authors>
+    <owners>António Vieira</owners>
+    <description>Simple parser for binary sequences supporting Type-Length-Value and similar formats.</description>
+    <projectUrl>https://github.com/tozevv/MiniBinaryParser</projectUrl>
+    <licenseUrl>https://github.com/tozevv/MiniBinaryParser/blob/master/LICENSE</licenseUrl>
+    <tags>parser binary type</tags>
+    <language>en-US</language>
+    <releaseNotes>Initial release.</releaseNotes>
+  </metadata>
+  <files>
+    <file src="MiniBinaryParser\bin\Release\MiniBinaryParser.dll" target="lib\net40" />
+  </files>
+</package>
+
